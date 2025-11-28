@@ -9,7 +9,7 @@ description = "FESOM test datasets for pycmor"
 readme = "README.md"
 requires-python = ">=3.9"
 dependencies = [
-    "pycmor>=0.1.0",
+    "pycmor",
 ]
 
 [project.entry-points."pycmor.fixtures.model_runs"]
