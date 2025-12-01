@@ -27,7 +27,7 @@ rules:
     compound_name: "ocean.thetao.mean.mon.gn"
     inputs:
       - path: "{{ datadir }}"
-        pattern: "*.nc"
+        pattern: ".*\\.nc"
     cmor_variable: "thetao"
     model_variable: "thetao"
     pipelines:

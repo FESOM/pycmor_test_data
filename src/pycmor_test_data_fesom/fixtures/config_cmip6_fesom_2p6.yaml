@@ -25,7 +25,7 @@ rules:
     model_component: "ocean"
     inputs:
       - path: "{{ datadir }}/outdata/fesom"
-        pattern: "temp.fesom.*.nc"
+        pattern: "temp.fesom..*\\.nc"
     cmor_variable: "thetao"
     model_variable: "temp"
     mesh_path: "{{ datadir }}/input/fesom/mesh/pi"
