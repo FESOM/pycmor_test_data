@@ -15,18 +15,6 @@ class Fesom2p6ModelRun(BaseModelRun):
     """
 
     @property
-    def registry_path(self) -> Path:
-        """Path to the pooch registry YAML file."""
-        # Override to use the registry file in the datasets directory
-        return Path(__file__).parent / "registry.yaml"
-
-    @property
-    def stub_manifest_path(self) -> Path:
-        """Path to the stub data manifest YAML file."""
-        # Override to use the stub manifest file in the datasets directory
-        return Path(__file__).parent / "fesom_2p6_stub_manifest.yaml"
-
-    @property
     def configs(self) -> dict:
         """Return available CMIP config files.
 
