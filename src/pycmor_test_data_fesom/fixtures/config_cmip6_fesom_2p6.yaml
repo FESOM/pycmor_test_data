@@ -28,18 +28,11 @@ rules:
         pattern: "temp.fesom..*\\.nc"
     cmor_variable: "thetao"
     model_variable: "temp"
-    mesh_path: "{{ datadir }}/input/fesom/mesh/pi"
     pipelines:
-      - level_regridder
+      - default
 pipelines:
-  - name: level_regridder
-    steps:
-      - pycmor.core.gather_inputs.load_mfdataset
-      - pycmor.std_lib.generic.get_variable
-      - pycmor.fesom_1p4.nodes_to_levels
-      - pycmor.core.caching.manual_checkpoint
-      - pycmor.std_lib.generic.trigger_compute
-      - pycmor.std_lib.generic.show_data
+  - name: default
+    uses: pycmor.core.pipeline.DefaultPipeline
 distributed:
   worker:
     memory:
