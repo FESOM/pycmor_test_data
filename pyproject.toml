@@ -27,4 +27,4 @@ where = ["src"]
 "" = "src"
 
 [tool.setuptools.package-data]
-pycmor_test_data_fesom = ["*.yaml"]
+pycmor_test_data_fesom = ["*.yaml", "fixtures/*.yaml"]

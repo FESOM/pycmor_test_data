@@ -32,6 +32,31 @@ class FesomDevModelRun(BaseModelRun):
         """Path to the stub data manifest YAML file."""
         return Path(__file__).parent / "fesom_dev_stub_manifest.yaml"
 
+    @property
+    def configs(self) -> dict:
+        """Return available CMIP config files.
+
+        Returns
+        -------
+        dict[str, Path]
+            Mapping of CMIP version ("cmip6", "cmip7") to config file paths.
+            Empty dict if no configs available.
+        """
+        configs = {}
+        fixtures_dir = Path(__file__).parent / "fixtures"
+
+        # Check for CMIP6 config
+        cmip6_config = fixtures_dir / "config_cmip6_fesom_dev.yaml"
+        if cmip6_config.exists():
+            configs["cmip6"] = cmip6_config
+
+        # Check for CMIP7 config
+        cmip7_config = fixtures_dir / "config_cmip7_fesom_dev.yaml"
+        if cmip7_config.exists():
+            configs["cmip7"] = cmip7_config
+
+        return configs
+
     def fetch_real_datadir(self) -> Path:
         """Download and extract real FESOM UXarray PI control data using pooch.
 

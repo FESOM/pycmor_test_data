@@ -26,6 +26,31 @@ class Fesom2p6ModelRun(BaseModelRun):
         # Override to use the stub manifest file in the datasets directory
         return Path(__file__).parent / "fesom_2p6_stub_manifest.yaml"
 
+    @property
+    def configs(self) -> dict:
+        """Return available CMIP config files.
+
+        Returns
+        -------
+        dict[str, Path]
+            Mapping of CMIP version ("cmip6", "cmip7") to config file paths.
+            Empty dict if no configs available.
+        """
+        configs = {}
+        fixtures_dir = Path(__file__).parent / "fixtures"
+
+        # Check for CMIP6 config
+        cmip6_config = fixtures_dir / "config_cmip6_fesom_2p6.yaml"
+        if cmip6_config.exists():
+            configs["cmip6"] = cmip6_config
+
+        # Check for CMIP7 config
+        cmip7_config = fixtures_dir / "config_cmip7_fesom_2p6.yaml"
+        if cmip7_config.exists():
+            configs["cmip7"] = cmip7_config
+
+        return configs
+
     def fetch_real_datadir(self) -> Path:
         """Download and extract real FESOM 2.6 PI mesh data using pooch.
 

@@ -1,0 +1,66 @@
+pycmor:
+  version: "unreleased"
+  use_xarray_backend: True
+  warn_on_no_rule: False
+  minimum_jobs: 8
+  maximum_jobs: 10
+general:
+  name: "fesom_dev_uxarray"
+  description: "FESOM dev (UXarray-compatible) configuration for CMIP6"
+  maintainer: "pgierz"
+  email: "pgierz@awi.de"
+  cmor_version: "CMIP6"
+  mip: "CMIP"
+  frequency: "mon"
+  CMIP_Tables_Dir: "./cmip6-cmor-tables/Tables"
+  CV_Dir: "./cmip6-cmor-tables/CMIP6_CVs"
+rules:
+  - name: "thetao_uxarray"
+    experiment_id: "piControl"
+    activity_id: "CMIP"
+    output_directory: "./output"
+    source_id: "FESOM"
+    grid_label: gn
+    variant_label: "r1i1p1f1"
+    model_component: "ocean"
+    inputs:
+      - path: "{{ datadir }}"
+        pattern: "*.nc"
+    cmor_variable: "thetao"
+    model_variable: "thetao"
+    pipelines:
+      - basic_processing
+pipelines:
+  - name: basic_processing
+    steps:
+      - pycmor.core.gather_inputs.load_mfdataset
+      - pycmor.std_lib.generic.get_variable
+      - pycmor.core.caching.manual_checkpoint
+      - pycmor.std_lib.generic.trigger_compute
+      - pycmor.std_lib.generic.show_data
+distributed:
+  worker:
+    memory:
+      target: 0.6
+      spill: 0.7
+      pause: 0.8
+      terminate: 0.95
+    resources:
+      CPU: 4
+    death-timeout: 60
+jobqueue:
+  slurm:
+    queue: compute
+    project: ab0246
+    cores: 4
+    memory: 128GB
+    walltime: '00:30:00'
+    job-extra:
+      - '--exclusive'
+    worker-template:
+      command: |
+        srun --ntasks=1 --cpus-per-task=4 --mem=128G dask-worker \
+          --nthreads 4 --memory-limit 128GB --death-timeout 60
+    scheduler-template:
+      command: |
+        srun --ntasks=1 --cpus-per-task=1 dask-scheduler
