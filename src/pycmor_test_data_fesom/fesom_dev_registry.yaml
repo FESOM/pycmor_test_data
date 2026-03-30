@@ -6,7 +6,7 @@
 # Note: Keeping original filename pi_uxarray.tar to match the download URL
 
 pi_uxarray.tar:
-  url: https://nextcloud.awi.de/s/swqyFgbL2jjgjRo/download/pi_uxarray.tar
+  url: https://nextcloud.awi.de/s/o2YQy2i9BR97Rge/download/pi_uxarray.tar
   sha256: null
   description: FESOM PI control UXarray test data
   extract_dir: pi_uxarray
