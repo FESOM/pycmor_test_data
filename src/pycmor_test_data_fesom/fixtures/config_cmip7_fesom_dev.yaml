@@ -31,15 +31,10 @@ rules:
     cmor_variable: "thetao"
     model_variable: "temp"
     pipelines:
-      - basic_processing
+      - default
 pipelines:
-  - name: basic_processing
-    steps:
-      - pycmor.core.gather_inputs.load_mfdataset
-      - pycmor.std_lib.generic.get_variable
-      - pycmor.core.caching.manual_checkpoint
-      - pycmor.std_lib.generic.trigger_compute
-      - pycmor.std_lib.generic.show_data
+  - name: default
+    uses: pycmor.core.pipeline.DefaultPipeline
 distributed:
   worker:
     memory:
