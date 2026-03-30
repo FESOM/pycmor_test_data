@@ -25,9 +25,9 @@ rules:
     model_component: "ocean"
     inputs:
       - path: "{{ datadir }}"
-        pattern: ".*\\.nc"
+        pattern: "temp.fesom..*\\.nc"
     cmor_variable: "thetao"
-    model_variable: "thetao"
+    model_variable: "temp"
     pipelines:
       - basic_processing
 pipelines:
